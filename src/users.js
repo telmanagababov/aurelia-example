@@ -1,19 +1,20 @@
+import {inject} from 'aurelia-framework';
 import {HttpClient} from 'aurelia-fetch-client';
 import 'fetch';
 
+@inject(HttpClient)
 export class Users {
-  static inject() { return [HttpClient]; }
+  heading = 'Github Users';
+  users = [];
 
   constructor(http) {
-    this.http = http;
-    this.heading = 'Github Users';
-    this.users = [];
-
     http.configure(config => {
       config
         .useStandardConfiguration()
         .withBaseUrl('https://api.github.com/');
     });
+
+    this.http = http;
   }
 
   activate() {
